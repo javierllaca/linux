@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ $# -eq 1 ]
+then
+    KERNEL_PATH=linux-$1
+    BUILD_PATH=~/kernelbuild
+
+    # Fetch source
+    wget -c https://www.kernel.org/pub/linux/kernel/v3.x/$KERNEL_PATH.tar.xz
+
+    # Copy to build directory
+    cp $KERNEL_PATH.tar.xz $BUILD_PATH
+
+    # Extract
+    cd $BUILD_PATH
+    tar -xvJf $KERNEL_PATH.tar.xz
+    cd $KERNEL_PATH
+
+    # Clean up
+    make mrproper
+else
+    echo Usage: $0 '<version>'
+fi
